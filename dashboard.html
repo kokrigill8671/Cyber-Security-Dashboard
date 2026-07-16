@@ -1,0 +1,1530 @@
+{% extends "base.html" %}
+
+{% block title %}Cyber Security Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- ============================= -->
+    <!-- HEADER -->
+    <!-- ============================= -->
+
+    <div class="row mb-4">
+
+        <div class="col-lg-8">
+
+            <h2 id="welcome" class="fw-bold text-primary">
+                Welcome Administrator
+            </h2>
+
+            <p class="text-muted">
+                Cyber Security Incident Response Management System
+            </p>
+
+        </div>
+
+        <div class="col-lg-4 text-end">
+
+            <div class="d-flex justify-content-end align-items-center gap-3">
+
+                <!-- Date -->
+
+                <div id="todayDate"
+                     class="fw-bold text-primary">
+                </div>
+
+                <!-- Clock -->
+
+                <div id="liveClock"
+                     class="fw-bold">
+                </div>
+
+                <!-- Notification -->
+
+                <div class="position-relative">
+
+                    <i class="fa-solid fa-bell fa-xl text-primary"></i>
+
+                    <span
+                        id="notificationCount"
+                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+
+                        4
+
+                    </span>
+
+                </div>
+
+                <!-- Theme -->
+
+                <button
+                    id="themeBtn"
+                    class="btn btn-dark">
+
+                    <i class="fa-solid fa-moon"></i>
+
+                </button>
+
+                <!-- Menu -->
+
+                <button
+                    id="menuBtn"
+                    class="btn btn-primary">
+
+                    <i class="fa-solid fa-bars"></i>
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+    <!-- ============================= -->
+    <!-- ACTION BUTTONS -->
+    <!-- ============================= -->
+
+    <div class="row mb-4">
+
+        <div class="col-lg-12">
+
+            <div class="d-flex gap-3">
+
+                <button
+                    id="refreshBtn"
+                    class="btn btn-success">
+
+                    <i class="fa-solid fa-rotate"></i>
+
+                    Refresh
+
+                </button>
+
+                <button
+                    id="downloadPDF"
+                    class="btn btn-danger">
+
+                    <i class="fa-solid fa-file-pdf"></i>
+
+                    Export PDF
+
+                </button>
+
+                <button
+                    class="btn btn-primary">
+
+                    <i class="fa-solid fa-plus"></i>
+
+                    Add Incident
+
+                </button>
+
+                <button
+                    class="btn btn-warning">
+
+                    <i class="fa-solid fa-user-plus"></i>
+
+                    Add User
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+    <!-- ============================= -->
+    <!-- DASHBOARD CARDS -->
+    <!-- ============================= -->
+
+    <div class="row g-4">
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="dashboard-card bg-primary">
+
+                <div>
+
+                    <h6>Total Incidents</h6>
+
+                    <h2 id="total">
+
+                        {{ total }}
+
+                    </h2>
+
+                    <small>
+
+                        +12% this week
+
+                    </small>
+
+                </div>
+
+                <div>
+
+                    <i class="fa-solid fa-shield-virus dashboard-icon"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="dashboard-card bg-success">
+
+                <div>
+
+                    <h6>Resolved</h6>
+
+                    <h2 id="resolved">
+
+                        {{ resolved }}
+
+                    </h2>
+
+                    <small>
+
+                        96% Success Rate
+
+                    </small>
+
+                </div>
+
+                <div>
+
+                    <i class="fa-solid fa-circle-check dashboard-icon"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="dashboard-card bg-warning">
+
+                <div>
+
+                    <h6>Open Incidents</h6>
+
+                    <h2 id="open">
+
+                        {{ open }}
+
+                    </h2>
+
+                    <small>
+
+                        Requires Attention
+
+                    </small>
+
+                </div>
+
+                <div>
+
+                    <i class="fa-solid fa-triangle-exclamation dashboard-icon"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+
+        <div class="col-xl-3 col-md-6">
+
+            <div class="dashboard-card bg-danger">
+
+                <div>
+
+                    <h6>Critical</h6>
+
+                    <h2 id="critical">
+
+                        {{ critical }}
+
+                    </h2>
+
+                    <small>
+
+                        Immediate Action
+
+                    </small>
+
+                </div>
+
+                <div>
+
+                    <i class="fa-solid fa-radiation dashboard-icon"></i>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+    <!-- ============================= -->
+    <!-- LIVE ALERT -->
+    <!-- ============================= -->
+
+    <div class="alert alert-warning mt-4">
+
+        <strong>
+
+            Live Alert :
+
+        </strong>
+
+        <span id="liveAlert">
+
+            Monitoring Security Events...
+
+        </span>
+
+    </div>
+
+
+
+
+
+    <!-- ============================= -->
+    <!-- SEARCH -->
+    <!-- ============================= -->
+
+    <div class="row mt-4">
+
+        <div class="col-lg-6">
+
+            <input
+
+                id="tableSearch"
+
+                class="form-control"
+
+                placeholder="Search incidents...">
+
+        </div>
+
+    </div>
+
+
+
+
+
+    <!-- Loader -->
+
+    <div
+        id="loader"
+        class="loader mt-4">
+    </div>
+
+    <!-- ============================= -->
+    <!-- NEXT:
+         Charts + Statistics
+    ============================= -->
+
+<!-- ==========================================
+     CHARTS SECTION
+========================================== -->
+
+<div class="row mt-4">
+
+    <!-- Weekly Incident Trend -->
+
+    <div class="col-lg-8">
+
+        <div class="card shadow-lg border-0 rounded-4">
+
+            <div class="card-header d-flex justify-content-between align-items-center">
+
+                <h5 class="mb-0">
+                    <i class="fa-solid fa-chart-line text-primary"></i>
+                    Weekly Incident Trend
+                </h5>
+
+                <span class="badge bg-success">
+                    Live
+                </span>
+
+            </div>
+
+            <div class="card-body">
+
+                <canvas id="incidentChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Severity Chart -->
+
+    <div class="col-lg-4">
+
+        <div class="card shadow-lg border-0 rounded-4">
+
+            <div class="card-header">
+
+                <h5 class="mb-0">
+
+                    <i class="fa-solid fa-chart-pie text-danger"></i>
+
+                    Incident Severity
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <canvas id="severityChart"></canvas>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+<!-- ==========================================
+     SYSTEM HEALTH
+========================================== -->
+
+<div class="row mt-4">
+
+    <!-- Firewall -->
+
+    <div class="col-md-3">
+
+        <div class="card shadow border-0 rounded-4">
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between">
+
+                    <h6>
+
+                        Firewall
+
+                    </h6>
+
+                    <i class="fa-solid fa-shield-halved text-success"></i>
+
+                </div>
+
+                <div class="progress mt-3">
+
+                    <div class="progress-bar bg-success"
+
+                         style="width:95%">
+
+                        95%
+
+                    </div>
+
+                </div>
+
+                <small class="text-success">
+
+                    Protected
+
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Antivirus -->
+
+    <div class="col-md-3">
+
+        <div class="card shadow border-0 rounded-4">
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between">
+
+                    <h6>
+
+                        Antivirus
+
+                    </h6>
+
+                    <i class="fa-solid fa-virus-slash text-primary"></i>
+
+                </div>
+
+                <div class="progress mt-3">
+
+                    <div class="progress-bar bg-primary"
+
+                         style="width:88%">
+
+                        88%
+
+                    </div>
+
+                </div>
+
+                <small class="text-primary">
+
+                    Updated
+
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- IDS -->
+
+    <div class="col-md-3">
+
+        <div class="card shadow border-0 rounded-4">
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between">
+
+                    <h6>
+
+                        IDS
+
+                    </h6>
+
+                    <i class="fa-solid fa-eye text-warning"></i>
+
+                </div>
+
+                <div class="progress mt-3">
+
+                    <div class="progress-bar bg-warning"
+
+                         style="width:82%">
+
+                        82%
+
+                    </div>
+
+                </div>
+
+                <small class="text-warning">
+
+                    Monitoring
+
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Backup -->
+
+    <div class="col-md-3">
+
+        <div class="card shadow border-0 rounded-4">
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between">
+
+                    <h6>
+
+                        Backup
+
+                    </h6>
+
+                    <i class="fa-solid fa-database text-info"></i>
+
+                </div>
+
+                <div class="progress mt-3">
+
+                    <div class="progress-bar bg-info"
+
+                         style="width:100%">
+
+                        100%
+
+                    </div>
+
+                </div>
+
+                <small class="text-info">
+
+                    Successful
+
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+<!-- ==========================================
+     QUICK STATUS CARDS
+========================================== -->
+
+<div class="row mt-4">
+
+    <div class="col-lg-3">
+
+        <div class="card shadow-sm border-0 rounded-4">
+
+            <div class="card-body text-center">
+
+                <i class="fa-solid fa-server fa-3x text-primary mb-3"></i>
+
+                <h5>Servers</h5>
+
+                <h2 class="text-primary">12</h2>
+
+                <small>Online</small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="col-lg-3">
+
+        <div class="card shadow-sm border-0 rounded-4">
+
+            <div class="card-body text-center">
+
+                <i class="fa-solid fa-laptop-code fa-3x text-success mb-3"></i>
+
+                <h5>Endpoints</h5>
+
+                <h2 class="text-success">248</h2>
+
+                <small>Protected</small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="col-lg-3">
+
+        <div class="card shadow-sm border-0 rounded-4">
+
+            <div class="card-body text-center">
+
+                <i class="fa-solid fa-user-shield fa-3x text-warning mb-3"></i>
+
+                <h5>Analysts</h5>
+
+                <h2 class="text-warning">8</h2>
+
+                <small>Active</small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="col-lg-3">
+
+        <div class="card shadow-sm border-0 rounded-4">
+
+            <div class="card-body text-center">
+
+                <i class="fa-solid fa-globe fa-3x text-danger mb-3"></i>
+
+                <h5>Threat Feeds</h5>
+
+                <h2 class="text-danger">16</h2>
+
+                <small>Connected</small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- Recent Incidents + Risk Assessment -->
+<!-- ===================================================== -->
+
+<div class="row mt-4">
+
+    <!-- Recent Incidents -->
+
+    <div class="col-lg-8">
+
+        <div class="card shadow-lg border-0 rounded-4">
+
+            <div class="card-header bg-white d-flex justify-content-between align-items-center">
+
+                <h5 class="fw-bold">
+
+                    <i class="fa-solid fa-shield-virus text-danger"></i>
+
+                    Recent Security Incidents
+
+                </h5>
+
+                <button class="btn btn-primary btn-sm">
+
+                    View All
+
+                </button>
+
+            </div>
+
+            <div class="card-body p-0">
+
+                <table class="table table-hover align-middle mb-0">
+
+                    <thead class="table-light">
+
+                    <tr>
+
+                        <th>ID</th>
+
+                        <th>Incident</th>
+
+                        <th>Severity</th>
+
+                        <th>Status</th>
+
+                        <th>Reported By</th>
+
+                        <th>Date</th>
+
+                    </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                    {% for incident in incidents %}
+
+                    <tr>
+
+                        <td>
+
+                            #{{ incident.id }}
+
+                        </td>
+
+                        <td>
+
+                            {{ incident.title }}
+
+                        </td>
+
+                        <td>
+
+                            {% if incident.severity=="Critical" %}
+
+                            <span class="badge bg-danger">
+
+                                Critical
+
+                            </span>
+
+                            {% elif incident.severity=="High" %}
+
+                            <span class="badge bg-warning text-dark">
+
+                                High
+
+                            </span>
+
+                            {% elif incident.severity=="Medium" %}
+
+                            <span class="badge bg-info">
+
+                                Medium
+
+                            </span>
+
+                            {% else %}
+
+                            <span class="badge bg-success">
+
+                                Low
+
+                            </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+
+                            {% if incident.status=="Resolved" %}
+
+                            <span class="badge bg-success">
+
+                                Resolved
+
+                            </span>
+
+                            {% elif incident.status=="Open" %}
+
+                            <span class="badge bg-danger">
+
+                                Open
+
+                            </span>
+
+                            {% else %}
+
+                            <span class="badge bg-warning text-dark">
+
+                                Investigating
+
+                            </span>
+
+                            {% endif %}
+
+                        </td>
+
+                        <td>
+
+                            {{ incident.reported_by }}
+
+                        </td>
+
+                        <td>
+
+                            {{ incident.created_at }}
+
+                        </td>
+
+                    </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Risk Assessment -->
+
+    <div class="col-lg-4">
+
+        <div class="card shadow-lg border-0 rounded-4">
+
+            <div class="card-header">
+
+                <h5 class="fw-bold">
+
+                    <i class="fa-solid fa-triangle-exclamation text-warning"></i>
+
+                    Risk Assessment
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <h6>Malware</h6>
+
+                <div class="progress mb-4">
+
+                    <div class="progress-bar bg-danger"
+
+                         style="width:92%">
+
+                    </div>
+
+                </div>
+
+                <h6>Phishing</h6>
+
+                <div class="progress mb-4">
+
+                    <div class="progress-bar bg-warning"
+
+                         style="width:75%">
+
+                    </div>
+
+                </div>
+
+                <h6>Brute Force</h6>
+
+                <div class="progress mb-4">
+
+                    <div class="progress-bar bg-primary"
+
+                         style="width:60%">
+
+                    </div>
+
+                </div>
+
+                <h6>Ransomware</h6>
+
+                <div class="progress mb-4">
+
+                    <div class="progress-bar bg-success"
+
+                         style="width:48%">
+
+                    </div>
+
+                </div>
+
+                <hr>
+
+                <div class="d-flex justify-content-between">
+
+                    <span>Overall Risk Score</span>
+
+                    <span class="badge bg-danger">
+
+                        7.8 / 10
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Security Alerts -->
+
+        <div class="card shadow-lg border-0 rounded-4 mt-4">
+
+            <div class="card-header">
+
+                <h5>
+
+                    <i class="fa-solid fa-bell text-primary"></i>
+
+                    Live Security Alerts
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="alert alert-danger">
+
+                    Malware detected on Host-07
+
+                </div>
+
+                <div class="alert alert-warning">
+
+                    Multiple failed logins detected
+
+                </div>
+
+                <div class="alert alert-info">
+
+                    Firewall rules updated
+
+                </div>
+
+                <div class="alert alert-success">
+
+                    Backup completed successfully
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- Threat Intelligence & Activity -->
+<!-- ===================================================== -->
+
+<div class="row mt-4">
+
+    <div class="col-lg-6">
+
+        <div class="card shadow-lg border-0 rounded-4">
+
+            <div class="card-header">
+
+                <h5>
+
+                    <i class="fa-solid fa-globe text-primary"></i>
+
+                    Threat Intelligence
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <table class="table table-borderless">
+
+                    <tr>
+
+                        <td>🇨🇳 China</td>
+
+                        <td class="text-danger fw-bold">218 Threats</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>🇷🇺 Russia</td>
+
+                        <td class="text-warning fw-bold">184 Threats</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>🇺🇸 USA</td>
+
+                        <td class="text-primary fw-bold">155 Threats</td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>🇰🇵 North Korea</td>
+
+                        <td class="text-success fw-bold">92 Threats</td>
+
+                    </tr>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="col-lg-6">
+
+        <div class="card shadow-lg border-0 rounded-4">
+
+            <div class="card-header">
+
+                <h5>
+
+                    <i class="fa-solid fa-clock-rotate-left text-success"></i>
+
+                    Recent Activity
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <ul class="list-group list-group-flush">
+
+                    <li class="list-group-item">
+
+                        ✔ Firewall blocked suspicious IP
+
+                    </li>
+
+                    <li class="list-group-item">
+
+                        ✔ Antivirus updated successfully
+
+                    </li>
+
+                    <li class="list-group-item">
+
+                        ✔ User admin logged in
+
+                    </li>
+
+                    <li class="list-group-item">
+
+                        ✔ Backup completed
+
+                    </li>
+
+                    <li class="list-group-item">
+
+                        ✔ New policy uploaded
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- SOC Overview -->
+<!-- ===================================================== -->
+
+<div class="row mt-4">
+
+    <div class="col-lg-4">
+
+        <div class="card shadow border-0 rounded-4">
+
+            <div class="card-header">
+
+                <h5>
+
+                    <i class="fa-solid fa-network-wired text-primary"></i>
+
+                    Network Status
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="d-flex justify-content-between mb-3">
+
+                    <span>Firewall</span>
+
+                    <span class="badge bg-success">Online</span>
+
+                </div>
+
+                <div class="d-flex justify-content-between mb-3">
+
+                    <span>IDS</span>
+
+                    <span class="badge bg-success">Running</span>
+
+                </div>
+
+                <div class="d-flex justify-content-between mb-3">
+
+                    <span>IPS</span>
+
+                    <span class="badge bg-success">Enabled</span>
+
+                </div>
+
+                <div class="d-flex justify-content-between">
+
+                    <span>VPN</span>
+
+                    <span class="badge bg-primary">Connected</span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+    <div class="col-lg-4">
+
+        <div class="card shadow border-0 rounded-4">
+
+            <div class="card-header">
+
+                <h5>
+
+                    <i class="fa-solid fa-user-shield text-success"></i>
+
+                    User Login Activity
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <table class="table table-sm">
+
+                    <tr>
+
+                        <td>Administrator</td>
+
+                        <td>
+
+                            <span class="badge bg-success">
+
+                                Online
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Security Analyst</td>
+
+                        <td>
+
+                            <span class="badge bg-warning">
+
+                                Busy
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Auditor</td>
+
+                        <td>
+
+                            <span class="badge bg-secondary">
+
+                                Offline
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+                    <tr>
+
+                        <td>Employee</td>
+
+                        <td>
+
+                            <span class="badge bg-success">
+
+                                Active
+
+                            </span>
+
+                        </td>
+
+                    </tr>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+
+    <div class="col-lg-4">
+
+        <div class="card shadow border-0 rounded-4">
+
+            <div class="card-header">
+
+                <h5>
+
+                    <i class="fa-solid fa-microchip text-danger"></i>
+
+                    Server Performance
+
+                </h5>
+
+            </div>
+
+            <div class="card-body">
+
+                <h6>CPU Usage</h6>
+
+                <div class="progress mb-3">
+
+                    <div class="progress-bar bg-primary"
+
+                         style="width:40%">
+
+                        40%
+
+                    </div>
+
+                </div>
+
+                <h6>Memory Usage</h6>
+
+                <div class="progress mb-3">
+
+                    <div class="progress-bar bg-warning"
+
+                         style="width:62%">
+
+                        62%
+
+                    </div>
+
+                </div>
+
+                <h6>Disk Usage</h6>
+
+                <div class="progress">
+
+                    <div class="progress-bar bg-danger"
+
+                         style="width:81%">
+
+                        81%
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+<!-- ===================================================== -->
+<!-- Live Alert -->
+<!-- ===================================================== -->
+
+<div class="row mt-4">
+
+    <div class="col-12">
+
+        <div class="alert alert-info shadow">
+
+            <i class="fa-solid fa-circle-info"></i>
+
+            <strong>
+
+                Live Security Feed :
+
+            </strong>
+
+            <span id="liveAlert">
+
+                Monitoring Security Events...
+
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+<!-- ===================================================== -->
+<!-- Footer -->
+<!-- ===================================================== -->
+
+<footer class="mt-5">
+
+    <div class="card border-0 shadow">
+
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-md-4">
+
+                    <h5 class="text-primary">
+
+                        Cyber Security IRMS
+
+                    </h5>
+
+                    <p class="text-muted">
+
+                        Industry Level Cyber Security Incident Response Management System
+
+                    </p>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <h6>
+
+                        Quick Links
+
+                    </h6>
+
+                    <ul class="list-unstyled">
+
+                        <li>
+
+                            Dashboard
+
+                        </li>
+
+                        <li>
+
+                            Incidents
+
+                        </li>
+
+                        <li>
+
+                            Reports
+
+                        </li>
+
+                        <li>
+
+                            Users
+
+                        </li>
+
+                    </ul>
+
+                </div>
+
+                <div class="col-md-4">
+
+                    <h6>
+
+                        Contact
+
+                    </h6>
+
+                    <p>
+
+                        admin@cybersecurity.com
+
+                    </p>
+
+                    <p>
+
+                        +91-9876543210
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <hr>
+
+            <div class="text-center">
+
+                © 2026 Cyber Security Incident Response Management System
+
+                <br>
+
+                MCA Cyber Security Final Year Project
+
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>
+
+</div>
+
+{% endblock %}

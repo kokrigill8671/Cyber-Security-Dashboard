@@ -1,0 +1,1170 @@
+/* ======================================================
+   Cyber Security Incident Response Dashboard
+   Premium Sky Blue Theme
+   Part 1
+====================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+:root{
+
+    --primary:#0ea5e9;
+    --secondary:#0284c7;
+    --dark:#0f172a;
+    --sidebar:#111827;
+    --white:#ffffff;
+    --light:#f1f5f9;
+    --border:#dbe4ee;
+    --success:#22c55e;
+    --warning:#f59e0b;
+    --danger:#ef4444;
+    --shadow:0 10px 30px rgba(0,0,0,.12);
+
+}
+
+*{
+
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+
+}
+
+body{
+
+    background:#eef6ff;
+    color:#1f2937;
+    overflow-x:hidden;
+
+}
+
+/* =======================
+   Layout
+======================= */
+
+.wrapper{
+
+    display:flex;
+    width:100%;
+
+}
+
+/* =======================
+   Sidebar
+======================= */
+
+.sidebar{
+
+    width:260px;
+    height:100vh;
+
+    position:fixed;
+    left:0;
+    top:0;
+
+    background:linear-gradient(180deg,#0f172a,#111827);
+
+    color:white;
+
+    overflow:auto;
+
+    transition:.35s;
+
+    box-shadow:var(--shadow);
+
+    z-index:1000;
+
+}
+
+.logo{
+
+    height:80px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:15px;
+
+    border-bottom:1px solid rgba(255,255,255,.08);
+
+}
+
+.logo i{
+
+    font-size:35px;
+
+    color:#38bdf8;
+
+}
+
+.logo span{
+
+    font-size:25px;
+
+    font-weight:700;
+
+    letter-spacing:1px;
+
+}
+
+/* Menu */
+
+.sidebar ul{
+
+    list-style:none;
+
+    padding:20px;
+
+}
+
+.sidebar ul li{
+
+    margin-bottom:8px;
+
+}
+
+.sidebar ul li a{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+    color:#d1d5db;
+
+    text-decoration:none;
+
+    padding:15px 18px;
+
+    border-radius:14px;
+
+    transition:.30s;
+
+    font-size:15px;
+
+    font-weight:500;
+
+}
+
+.sidebar ul li a i{
+
+    width:22px;
+
+    text-align:center;
+
+    font-size:18px;
+
+}
+
+.sidebar ul li a:hover{
+
+    background:linear-gradient(90deg,#0ea5e9,#0284c7);
+
+    color:white;
+
+    transform:translateX(6px);
+
+}
+
+.sidebar ul li.active a{
+
+    background:linear-gradient(90deg,#38bdf8,#0284c7);
+
+    color:white;
+
+}
+
+/* =======================
+   Main Content
+======================= */
+
+.content{
+
+    margin-left:260px;
+
+    width:calc(100% - 260px);
+
+    min-height:100vh;
+
+    padding:30px;
+
+}
+
+/* =======================
+   Topbar
+======================= */
+
+.topbar{
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:18px 30px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:30px;
+
+    box-shadow:var(--shadow);
+
+}
+
+.topbar h3{
+
+    margin:0;
+
+    font-weight:700;
+
+    color:#0f172a;
+
+}
+
+.top-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+}
+
+.top-right button{
+
+    border-radius:12px;
+
+    padding:10px 18px;
+
+    font-weight:600;
+
+}
+
+.profile{
+
+    width:45px;
+
+    height:45px;
+
+    border-radius:50%;
+
+    border:3px solid #38bdf8;
+
+}
+
+/* =======================
+   Cards
+======================= */
+
+.dashboard-card{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:28px;
+
+    border-radius:22px;
+
+    color:white;
+
+    min-height:150px;
+
+    box-shadow:var(--shadow);
+
+    transition:.35s;
+
+    overflow:hidden;
+
+    position:relative;
+
+}
+
+.dashboard-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:180px;
+
+    height:180px;
+
+    background:rgba(255,255,255,.15);
+
+    border-radius:50%;
+
+    top:-70px;
+
+    right:-70px;
+
+}
+
+.dashboard-card:hover{
+
+    transform:translateY(-10px);
+
+}
+
+.dashboard-card h6{
+
+    font-size:16px;
+
+    font-weight:500;
+
+    opacity:.95;
+
+}
+
+.dashboard-card h2{
+
+    font-size:42px;
+
+    margin-top:10px;
+
+    font-weight:700;
+
+}
+
+.dashboard-icon{
+
+    font-size:55px;
+
+    opacity:.30;
+
+}
+
+/* Colors */
+
+.bg-primary{
+
+    background:linear-gradient(135deg,#38bdf8,#0284c7)!important;
+
+}
+
+.bg-success{
+
+    background:linear-gradient(135deg,#34d399,#16a34a)!important;
+
+}
+
+.bg-warning{
+
+    background:linear-gradient(135deg,#fbbf24,#f59e0b)!important;
+
+}
+
+.bg-danger{
+
+    background:linear-gradient(135deg,#fb7185,#ef4444)!important;
+
+}
+
+/* =======================
+   Cards
+======================= */
+
+.card{
+
+    border:none!important;
+
+    border-radius:20px!important;
+
+    box-shadow:var(--shadow);
+
+}
+
+.card-header{
+
+    background:white!important;
+
+    border-bottom:1px solid var(--border)!important;
+
+    padding:18px 25px;
+
+}
+
+.card-header h5{
+
+    margin:0;
+
+    font-weight:700;
+
+}
+
+.card-body{
+
+    padding:25px;
+
+}
+
+/* ==========================================
+   PART 2
+   Charts • Tables • Widgets • Alerts
+==========================================*/
+
+/* Chart Container */
+
+.chart{
+
+    background:#fff;
+    border-radius:20px;
+    padding:25px;
+    margin-top:30px;
+    box-shadow:var(--shadow);
+
+}
+
+.chart canvas{
+
+    width:100%!important;
+    height:360px!important;
+
+}
+
+/* ===========================
+   Table Section
+===========================*/
+
+.table-area{
+
+    margin-top:30px;
+    background:white;
+    border-radius:20px;
+    box-shadow:var(--shadow);
+    overflow:hidden;
+
+}
+
+.table-area h3{
+
+    padding:20px 25px;
+    margin:0;
+    color:#0f172a;
+    font-weight:700;
+
+}
+
+.table{
+
+    margin:0;
+
+}
+
+.table thead{
+
+    background:#0ea5e9;
+    color:white;
+
+}
+
+.table thead th{
+
+    padding:18px;
+    border:none;
+    font-size:15px;
+
+}
+
+.table tbody td{
+
+    padding:18px;
+    vertical-align:middle;
+    border-color:#eef2f7;
+
+}
+
+.table tbody tr{
+
+    transition:.3s;
+
+}
+
+.table tbody tr:hover{
+
+    background:#eff8ff;
+
+}
+
+/* ===========================
+   Badges
+===========================*/
+
+.badge{
+
+    padding:8px 16px;
+    border-radius:30px;
+    font-size:13px;
+    font-weight:600;
+
+}
+
+.bg-critical{
+
+    background:#ef4444;
+    color:white;
+
+}
+
+.bg-high{
+
+    background:#f59e0b;
+    color:white;
+
+}
+
+.bg-medium{
+
+    background:#0ea5e9;
+    color:white;
+
+}
+
+.bg-low{
+
+    background:#22c55e;
+    color:white;
+
+}
+
+/* ===========================
+   Risk Widget
+===========================*/
+
+.risk-widget{
+
+    background:white;
+    border-radius:20px;
+    box-shadow:var(--shadow);
+    padding:25px;
+    margin-top:30px;
+
+}
+
+.risk-widget h5{
+
+    font-weight:700;
+    margin-bottom:25px;
+
+}
+
+.risk-item{
+
+    margin-bottom:20px;
+
+}
+
+.risk-item small{
+
+    font-weight:600;
+    color:#64748b;
+
+}
+
+.progress{
+
+    height:12px;
+    border-radius:30px;
+    overflow:hidden;
+    background:#e2e8f0;
+
+}
+
+.progress-bar{
+
+    border-radius:30px;
+
+}
+
+/* ===========================
+   Alerts
+===========================*/
+
+.alert{
+
+    border:none;
+    border-radius:15px;
+    padding:15px 18px;
+    font-weight:500;
+    margin-bottom:15px;
+
+}
+
+.alert-danger{
+
+    background:#fee2e2;
+    color:#b91c1c;
+
+}
+
+.alert-warning{
+
+    background:#fef3c7;
+    color:#92400e;
+
+}
+
+.alert-success{
+
+    background:#dcfce7;
+    color:#166534;
+
+}
+
+.alert-info{
+
+    background:#dbeafe;
+    color:#1d4ed8;
+
+}
+
+/* ===========================
+   Stats Widget
+===========================*/
+
+.stats-widget{
+
+    background:white;
+    border-radius:20px;
+    padding:25px;
+    box-shadow:var(--shadow);
+    margin-top:30px;
+
+}
+
+.stats-widget h5{
+
+    font-weight:700;
+    margin-bottom:20px;
+
+}
+
+.stats-row{
+
+    display:flex;
+    justify-content:space-between;
+    padding:12px 0;
+    border-bottom:1px solid #eef2f7;
+
+}
+
+.stats-row:last-child{
+
+    border-bottom:none;
+
+}
+
+.stats-value{
+
+    font-weight:700;
+    color:#0ea5e9;
+
+}
+
+/* ===========================
+   User Activity
+===========================*/
+
+.activity{
+
+    margin-top:30px;
+    background:white;
+    border-radius:20px;
+    padding:25px;
+    box-shadow:var(--shadow);
+
+}
+
+.activity-item{
+
+    display:flex;
+    gap:15px;
+    margin-bottom:20px;
+
+}
+
+.activity-icon{
+
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#e0f2fe;
+    color:#0284c7;
+    font-size:18px;
+
+}
+
+.activity-text{
+
+    flex:1;
+
+}
+
+.activity-text h6{
+
+    margin-bottom:5px;
+    font-weight:600;
+
+}
+
+.activity-text p{
+
+    margin:0;
+    color:#64748b;
+    font-size:14px;
+
+}
+
+/* ===========================
+   Scrollbar
+===========================*/
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+    background:#f1f5f9;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+    background:#38bdf8;
+    border-radius:20px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+    background:#0284c7;
+
+}
+
+/* ==========================================
+   PART 3
+   Animation • Glass • Responsive
+==========================================*/
+
+/* Smooth Animations */
+
+*{
+    transition:0.3s ease;
+}
+
+.dashboard-card,
+.card,
+.table-area,
+.chart,
+.activity,
+.stats-widget,
+.risk-widget{
+    animation:fadeUp .6s ease;
+}
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+        transform:translateY(20px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateY(0);
+
+    }
+
+}
+
+/* Glassmorphism */
+
+.glass{
+
+    background:rgba(255,255,255,.18);
+
+    backdrop-filter:blur(18px);
+
+    border:1px solid rgba(255,255,255,.2);
+
+    border-radius:20px;
+
+}
+
+/* Card Hover */
+
+.dashboard-card:hover{
+
+    transform:translateY(-8px) scale(1.02);
+
+    box-shadow:0 25px 40px rgba(0,0,0,.18);
+
+}
+
+.card:hover{
+
+    transform:translateY(-5px);
+
+}
+
+/* Button */
+
+.btn{
+
+    border-radius:12px;
+
+    font-weight:600;
+
+    transition:.3s;
+
+}
+
+.btn-primary{
+
+    background:linear-gradient(135deg,#0ea5e9,#2563eb);
+
+    border:none;
+
+}
+
+.btn-primary:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:0 8px 18px rgba(14,165,233,.35);
+
+}
+
+/* Navbar */
+
+.topbar{
+
+    position:sticky;
+
+    top:20px;
+
+    z-index:100;
+
+}
+
+/* Profile */
+
+.profile{
+
+    cursor:pointer;
+
+}
+
+.profile:hover{
+
+    transform:scale(1.1);
+
+}
+
+/* Notification Badge */
+
+.notification{
+
+    position:relative;
+
+}
+
+.notification::after{
+
+    content:"";
+
+    position:absolute;
+
+    top:2px;
+
+    right:2px;
+
+    width:10px;
+
+    height:10px;
+
+    background:#ef4444;
+
+    border-radius:50%;
+
+}
+
+/* Inputs */
+
+input,
+select,
+textarea{
+
+    border-radius:12px!important;
+
+    border:1px solid #dbe4ee!important;
+
+    box-shadow:none!important;
+
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+
+    border-color:#0ea5e9!important;
+
+    box-shadow:0 0 10px rgba(14,165,233,.2)!important;
+
+}
+
+/* Cards */
+
+.card-header{
+
+    font-size:18px;
+
+    font-weight:700;
+
+}
+
+/* Tables */
+
+.table tbody tr{
+
+    cursor:pointer;
+
+}
+
+.table tbody tr:hover{
+
+    transform:scale(1.01);
+
+}
+
+/* Sidebar Scroll */
+
+.sidebar{
+
+    scrollbar-width:thin;
+
+    scrollbar-color:#38bdf8 transparent;
+
+}
+
+/* Footer */
+
+.footer{
+
+    margin-top:40px;
+
+    text-align:center;
+
+    color:#64748b;
+
+    font-size:14px;
+
+    padding:20px;
+
+}
+
+/* Dark Mode */
+
+.dark-mode{
+
+    background:#0f172a;
+
+    color:white;
+
+}
+
+.dark-mode .card,
+
+.dark-mode .chart,
+
+.dark-mode .table-area,
+
+.dark-mode .stats-widget,
+
+.dark-mode .activity,
+
+.dark-mode .risk-widget{
+
+    background:#1e293b;
+
+    color:white;
+
+}
+
+.dark-mode .table{
+
+    color:white;
+
+}
+
+.dark-mode .table thead{
+
+    background:#2563eb;
+
+}
+
+/* Responsive */
+
+@media(max-width:1400px){
+
+.cards{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+@media(max-width:992px){
+
+.sidebar{
+
+width:80px;
+
+}
+
+.sidebar span{
+
+display:none;
+
+}
+
+.sidebar ul li a{
+
+justify-content:center;
+
+}
+
+.sidebar ul li a i{
+
+margin:0;
+
+font-size:20px;
+
+}
+
+.content{
+
+margin-left:80px;
+
+width:calc(100% - 80px);
+
+}
+
+}
+
+@media(max-width:768px){
+
+.cards{
+
+grid-template-columns:1fr;
+
+}
+
+.topbar{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+gap:15px;
+
+}
+
+.content{
+
+padding:15px;
+
+}
+
+.chart canvas{
+
+height:250px!important;
+
+}
+
+}
+
+@media(max-width:576px){
+
+.sidebar{
+
+display:none;
+
+}
+
+.content{
+
+margin-left:0;
+
+width:100%;
+
+}
+
+.topbar{
+
+padding:15px;
+
+}
+
+.dashboard-card{
+
+padding:20px;
+
+}
+
+.dashboard-card h2{
+
+font-size:32px;
+
+}
+
+}
+
+/* Loading */
+
+.loader{
+
+width:60px;
+
+height:60px;
+
+border:6px solid #dbeafe;
+
+border-top:6px solid #0ea5e9;
+
+border-radius:50%;
+
+animation:spin 1s linear infinite;
+
+}
+
+@keyframes spin{
+
+100%{
+
+transform:rotate(360deg);
+
+}
+
+}
